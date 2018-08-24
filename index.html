@@ -1,0 +1,30 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎来到小旭的世界</title>
+
+    <script src="js/common.js"></script>
+    <script>
+
+        var logout = function () {
+            var userName = userInfo.userName;
+            console.log(userName);
+            var success = function (result) {
+                sessionStorage.clear();
+                window.location.href = "login.html";
+            }
+            ajaxRequest(getBaseUrl() + "/logout.mvc", {userName:userName}, success);
+        };
+
+
+    </script>
+
+</head>
+<body>
+
+<div class="easyui-linkbutton" data-options="iconCls:'icon-lock'" onclick="logout()">logout</div>
+<!--<iframe src="main.html" height="80%" width="80%" ></iframe>-->
+
+
+</body>
+</html>

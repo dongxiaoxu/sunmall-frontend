@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuextest</title>
+    <script src="/vue/vue.js"></script>
+    <script src="/vue/vuex.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{num}}</p>
+        <button @click="increment">+</button>
+        <button @click="decrement">-</button>
+    </div>
+
+    <script>
+
+        var store = new Vuex.Store({
+            state : {
+                count : 0
+            },
+            mutations : {
+                add : state => state.count++,
+                sub : function (state) {
+                    state.count--;
+                }
+            }
+
+        });
+        var app = new Vue({
+            el : '#app',
+//            data : {
+//                num : store.state.count
+//            },
+            computed : {
+              num() {
+                  return store.state.count;
+              }
+            },
+            methods : {
+                increment : function () {
+                    store.commit('add');
+                },
+                decrement : function () {
+                    store.commit('sub');
+                }
+            }
+        });
+
+
+    </script>
+
+</body>
+</html>

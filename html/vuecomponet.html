@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuecompont</title>
+    <script src="/js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+
+    <xuxu></xuxu>
+    <test> </test>
+
+</div>
+
+<div id="app2">
+
+    <xu></xu>
+    <test message="lalala"></test>
+</div>
+
+
+<script>
+    var xu =  {
+        template : '<div>xuxuxu</div>'
+    };
+    var app = new Vue({
+        el : '#app',
+        components : {
+            xuxu:xu
+        }
+    });
+    Vue.component('test', {
+        props : ['message'],
+        template : '<div>{{message}}</div>'
+    });
+    var app2 = new Vue({
+        el : '#app2',
+    });
+
+
+
+
+</script>
+</body>
+</html>

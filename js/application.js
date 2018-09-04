@@ -5,7 +5,7 @@
 
 var ajaxRequest = function (url, params, success, failure) {
     $.ajax({
-        url : url,
+        url : getBaseUrl() + url,
         method: 'post',
         //指定返回为json时,数据返回必须是json，否则走error分支，因此去除该类型
         // dataType : 'json',
@@ -35,5 +35,5 @@ var ajaxRequest = function (url, params, success, failure) {
 }
 
 var getBaseUrl = function () {
-    return "http://192.168.102.142:8080/sunmall";
+    return "http://127.0.0.1:8080";
 }

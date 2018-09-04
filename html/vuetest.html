@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vuetest</title>
+    <script src="/js/vue.js"></script>
+    <style>
+        .error {
+            font-style: italic;
+            color:red;
+        }
+        body {
+            cursor : url("/icon/application.ico"), auto
+        }
+        .warning {
+            color: #ffbf03;
+        }
+        .info {
+            color:cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div>{{message}}</div>
+    <button @click="changeStatus">显示/隐藏</button>
+    <div v-if="isShow">我在这呢</div>
+    <div v-show="!isShow">我不在呢</div>
+
+
+
+    乘数1：<input v-model="num1"/>
+    乘数2：<input v-model="num2"/>
+    结果:<div>{{multResult}}</div>
+
+    <div :class="hasError | isError">提示</div>
+    <div @click="error" style="cursor:pointer;width:40px;heght:10px;border:1px solid black">错误</div>
+
+
+    <input v-model="age"></input>
+    <div v-if="age<20">年轻人</div>
+    <div v-else-if="age<40">中年人</div>
+    <div v-else>老年人</div>
+
+
+    <ul>
+        <li v-for="user in users">
+            姓名：<span>{{user.name}}</span>
+            年龄：<span>{{user.age}}</span>
+        </li>
+    </ul>
+
+    <ol>
+        <li v-for="prop in user">
+            <span>{{prop}}</span>
+        </li>
+    </ol>
+
+    <ul>
+        <li v-for="(value, index) in users">
+            <span>{{index}}</span>
+        </li>
+    </ul>
+    <di>
+        创建人：<input v-model="createUser"/>
+        创建时间：<div>{{createDate}}</div>
+    </di>
+
+    <div :class="{warning:isWarning,info:isInfo}">警告</div>
+    <div :class="info">提示</div>
+    <div :class="getInfoClass">提示（属性计算）</div>
+    <div :style="{color:color}">提示2</div>
+    <div :style="style1">提示3</div>
+    <div :style="[style2,style3]">样式2,3</div>
+
+</div>
+
+<div id="app2">
+    <label for="name">姓名：</label><input type="text" title="姓名" id="name" placeholder="请填写姓名" v-model="name"/>
+    <label>性别</label>
+    <input type="radio" id="man" value="男" v-model="sex"/><label for="man">男</label>
+    <input type="radio" id="woman" value="女" v-model="sex"/><label for="woman">女</label>
+    <label>爱好</label>
+    <input type="checkbox" v-model="hobby" value="篮球" id="basketball"><label for="basketball">篮球</label>
+    <input type="checkbox" v-model="hobby" value="足球" id="football"><label for="basketball">足球</label>
+    <input type="checkbox" v-model="hobby" value="游泳" id="swimming"><label for="basketball">游泳</label>
+
+    <label>身份</label>
+    <select v-model="role">
+        <option value="president">校长</option>
+        <option value="teacher">教师</option>
+        <option value="student">学生</option>
+    </select>
+    <div>姓名：{{name}}, 性别：{{sex}}, 爱好：{{hobby}},身份：{{role}}</div>
+
+    number<input type="number">
+    color<input type="color">
+    date<input type="date">
+    datetime<input type="datetime">
+    datetime-local<input type="datetime-local">
+    image<input type="image">
+    month<input type="month">
+    file<input type="file">
+    email<input type="email">
+    range<input type="range">
+    reset<input type="reset">
+    search<input type="search">
+    tel<input type="tel">
+    time<input type="time">
+    url<input type="url">
+    week<input type="week">
+
+</div>
+
+<script>
+    var app = new Vue({
+        el : '#app',
+        data : {
+            message : 'hello world',
+            isShow : false,
+            num1 : null,
+            num2 : null,
+            hasError : false,
+            age : null,
+            now : null,
+            createUser : null,
+            createDate : new Date(),
+            users : [
+                {
+                    name: 'zhangsan',
+                    age : 23
+                },
+                {
+                    name : 'lisi',
+                    age : 20
+                },
+                {
+                    name : 'wangwu',
+                    age : 31
+                }
+            ],
+            user : {
+                name:'dongnxu',
+                age : 24,
+                address : 'hefei'
+            },
+            isWarning : true,
+            isInfo : true,
+            info : 'info warning',
+            color : 'green',
+            style1 : {
+                color:'yellow',
+                fontSize:'20px'
+            },
+            style2 : {
+                background : 'black',
+                color : '#FFF'
+            },
+            style3 : {
+                fontStyle : 'italic'
+            }
+        },
+        methods: {
+            changeStatus : function () {
+                this.isShow = !this.isShow;
+            },
+            error : function() {
+                this.hasError = !this.hasError
+            },
+            formatDate : function(value) {
+                return value > 10 ? value : "0" + value;
+            }
+
+        },
+        computed : {
+            multResult : function () {
+                if (this.num1 && this.num2) {
+                    return this.num1 * this.num2;
+                } else {
+                    return null;
+                }
+            },
+            getInfoClass : function () {
+                return {warning:this.isWarning,info:this.isInfo};
+//                return 'waring info';
+            }
+        },
+        filters : {
+            isError : function (hasError) {
+                return hasError ? 'error' : null;
+            }
+        },
+        watch : {
+            createUser : function (value) {
+                var now = new Date();
+                this.createDate = now.getFullYear() + "-" + this.formatDate(now.getMonth())
+                    + "-" + this.formatDate(now.getDay())
+                + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+            }
+        },
+        created : function () {
+            console.log('created');
+        }
+
+    });
+    app.time = 'hhaha';
+
+
+    var app2 = new Vue({
+        el : '#app2',
+        data : {
+            name : null,
+            sex : null,
+            hobby : [],
+            role : null
+        }
+    });
+</script>
+
+</body>
+</html>

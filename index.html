@@ -13,7 +13,7 @@
                 sessionStorage.clear();
                 window.location.href = "login.html";
             }
-            ajaxRequest(getBaseUrl() + "/logout.mvc", {userName:userName}, success);
+            ajaxRequest("/logout.mvc", {userName:userName}, success);
         };
 
 

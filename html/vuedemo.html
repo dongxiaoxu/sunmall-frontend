@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>测试vue组件</title>
+    <script src="../vue/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ul>
+            <my-div>
+                <span>1</span>
+                <span slot="name">dongxu</span>
+                <span slot="age">22</span>
+            </my-div>
+            <my-div>
+                   <span>2</span>
+                   <span slot="name">zhangsan</span>
+                   <span slot="age">22</span>
+            </my-div>
+        </ul>
+
+    </div>
+
+
+
+    <script>
+
+        let myDiv = {
+            template :
+            `
+            <div>
+                <li>
+                    <div>序号：<slot></slot></div>
+                    <div>姓名：<slot name='name'></slot></div>
+                    <div>年龄：<slot name='age'></slot></div>
+                </li>
+            </div>
+            `
+        };
+
+
+        let app = new Vue({
+            el : '#app',
+            components : {
+                'my-div' :myDiv
+            }
+        });
+
+        
+        
+        
+    </script>
+
+</body>
+
+</html>

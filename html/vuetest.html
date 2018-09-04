@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>vuetest</title>
-    <script src="/js/vue.js"></script>
+    <script src="/vue/vue.js"></script>
     <style>
         .error {
             font-style: italic;
@@ -34,7 +34,7 @@
     结果:<div>{{multResult}}</div>
 
     <div :class="hasError | isError">提示</div>
-    <div @click="error" style="cursor:pointer;width:40px;heght:10px;border:1px solid black">错误</div>
+    <div @click="error" style="cursor:pointer;width:40px;height:10px;border:1px solid black">错误</div>
 
 
     <input v-model="age"></input>
